@@ -46,15 +46,15 @@ class DinoModel:
             last_layer_attention_map = last_layer_attention_map.squeeze(0)
         return all_layer_features_stacked, last_layer_attention_map
 
-    @torch.no_grad()
-    def build_knn_transition(self, feat: torch.Tensor, k: int = 30, sigma: float = 0.07):
-        feat = F.normalize(feat, p=2, dim=-1)
-        N = feat.shape[0]
-        sim = feat @ feat.t()
-        sim.fill_diagonal_(-1e9)
-        vals, idx = torch.topk(sim, k=k, dim=1)
-        w = torch.exp(vals / sigma)
-        P = torch.zeros((N, N), device=feat.device, dtype=feat.dtype)
-        P.scatter_(1, idx, w)
-        P = P / (P.sum(dim=1, keepdim=True) + 1e-6)
-        return P
+    # @torch.no_grad()
+    # # def build_knn_transition(self, feat: torch.Tensor, k: int = 30, sigma: float = 0.07):
+    # #     feat = F.normalize(feat, p=2, dim=-1)
+    # #     N = feat.shape[0]
+    # #     sim = feat @ feat.t()
+    # #     sim.fill_diagonal_(-1e9)
+    # #     vals, idx = torch.topk(sim, k=k, dim=1)
+    # #     w = torch.exp(vals / sigma)
+    # #     P = torch.zeros((N, N), device=feat.device, dtype=feat.dtype)
+    # #     P.scatter_(1, idx, w)
+    # #     P = P / (P.sum(dim=1, keepdim=True) + 1e-6)
+    # #     return P
