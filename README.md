@@ -7,7 +7,7 @@ We proposed a novel training-free OVSS method, termed SDCI. SDCI introduces the 
 
 
 
-f our project is helpful for your research, please consider citing:
+If our project is helpful for your research, please consider citing:
 
 @misc{wang2026bidirectionalcrossperceptionopenvocabularysemantic,
       title={Bidirectional Cross-Perception for Open-Vocabulary Semantic Segmentation in Remote Sensing Imagery}, 
@@ -18,4 +18,6 @@ f our project is helpful for your research, please consider citing:
       primaryClass={cs.CV},
       url={https://arxiv.org/abs/2601.21159}, 
 }
+
+Contact: nih2015@yeah.net; nih@nuist.edu.cn
 
