@@ -13,3 +13,7 @@ gradio==5.36.2
 tqdm==4.67.1
 PyYAML==6.0.2
 texttable==1.7.0
+
+Downloading "dino_vitbase8_pretrain.pth" from: 
+https://huggingface.co/datasets/sunhaohit/temp/blob/main/dino_vitbase8_pretrain.pth
+
