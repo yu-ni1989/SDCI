@@ -1,0 +1,6 @@
+other
+built-up
+farmland
+forest
+meadow
+water
