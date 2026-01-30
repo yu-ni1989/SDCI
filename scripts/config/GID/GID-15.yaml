@@ -1,0 +1,15 @@
+dataset_name: "GID"
+model_name: "ViT-L/14"
+
+
+semantic_templates: "C:/Users/UU/Desktop/SDCI/template/image_template.txt"
+gid_root: "D:/GID/GID_val_6300_image"
+img_name_list_path: "D:/GID/GID_6300_val.txt"
+label_root: "D:/GID/GID_val_6300_label"
+
+logit_scale: 50
+score_threshold: 0.5
+bkg_thre: 0
+is_normalize: Ture
+ignore_labels: 255
+dino_version: 2

@@ -1,0 +1,16 @@
+dataset_name: "loveDA"
+model_name: "ViT-L/14"
+
+
+semantic_templates: "C:/Users/UU/Desktop/cliper.code-master 2/cliper.code-master/template/image_template.txt"
+loveDA_root: "E:/loveDA/images"
+img_name_list_path: "E:/loveDA/loveDA_6676_val.txt"
+label_root: "E:/loveDA/labels-255"
+
+
+logit_scale: 50
+score_threshold: 0.5
+bkg_thre: 0
+is_normalize: True
+ignore_labels: 255
+dino_version: 2

@@ -1,0 +1,14 @@
+dataset_name: "iSAID"
+model_name: "ViT-L/14"
+
+semantic_templates: "C:/Users/UU/Desktop/SDCI/template/image_template.txt"
+potsdam_root: "D:/iSAID/images-512"
+img_name_list_path: "D:/iSAID/iSAID_14201_val.txt"
+label_root: "D:/iSAID/labels-512"
+
+logit_scale: 50
+score_threshold: 0.5
+bkg_thre: 0
+is_normalize: True
+ignore_labels: 255
+dino_version: 2

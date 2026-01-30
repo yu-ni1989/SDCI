@@ -1,0 +1,10 @@
+a satellite image of a {}.
+an aerial view of a {}.
+a satellite photo of a {}.
+a top-down view of a {}.
+a piece of land with a {}.
+a landscape dominated by a {}.
+an earth observation satellite image of a {}.
+a landscape dominated by {}.
+an area of {} as seen from above.
+land cover classified as {}.
