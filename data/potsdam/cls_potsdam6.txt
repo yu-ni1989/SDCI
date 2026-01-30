@@ -1,0 +1,6 @@
+other
+impervious surfaces
+building
+low vegetation
+tree
+car

@@ -1,0 +1,7 @@
+other
+building
+road
+water
+barren
+forest
+agriculture
