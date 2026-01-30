@@ -40,15 +40,15 @@ class CLIP(nn.Module):
         self.img_part_features = None
         self.image_feature = []
         self.dino_transform = ttf.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-        self.dino_model = DinoModel(
-             weights_path="C:/Users/UU/Desktop/SDCI/dino_vitbase8_pretrain.pth",
-             device=self.device)
+        # self.dino_model = DinoModel(
+        #      weights_path="C:/Users/UU/Desktop/SDCI/dino_vitbase8_pretrain.pth",
+        #      device=self.device)
         self.dino_v2_model = DinoV2Model(
             model_name="dinov2_vitb14_reg",
             device=self.device)
-        self.dino_v3_model = DinoV3Model(
-            model_name="facebook/dinov3-vitb16-pretrain-lvd1689m",
-            device=self.device)
+        # self.dino_v3_model = DinoV3Model(
+        #     model_name="facebook/dinov3-vitb16-pretrain-lvd1689m",
+        #     device=self.device)
 
     def modify(self):
         model_transformer = self.model.visual.transformer
@@ -245,6 +245,19 @@ class CLIP(nn.Module):
 
     def min_max_normalize(tensor):
         return (tensor - tensor.min()) / (tensor.max() - tensor.min())
+
+    def build_knn_transition(self, feat: torch.Tensor, k: int = 30, sigma: float = 0.07):
+        feat = F.normalize(feat, p=2, dim=-1)
+        N = feat.shape[0]
+        sim = feat @ feat.t()
+        sim.fill_diagonal_(-1e9)
+        vals, idx = torch.topk(sim, k=k, dim=1)
+        w = torch.exp(vals / sigma)
+        P = torch.zeros((N, N), device=feat.device, dtype=feat.dtype)
+        P.scatter_(1, idx, w)
+        P = P / (P.sum(dim=1, keepdim=True) + 1e-6)
+        return P
+
     def forward(self, img: torch.Tensor, fg_text_features: torch.Tensor, bg_text_features: torch.Tensor, ori_img):
         self.img_h, self.img_w = img.shape[2] // self.patch_size, img.shape[3] // self.patch_size
         text_features = torch.cat([fg_text_features, bg_text_features, fg_text_features.mean(0, True)], dim=0)
@@ -258,8 +271,8 @@ class CLIP(nn.Module):
             else:
                 raise NotImplementedError("Unknown dino_version")
 
-            transition_matrix_dino = self.dino_model.build_knn_transition(dino_all_feature_maps[-1, 1:])
-            transition_matrix_clip = self.dino_model.build_knn_transition(img_feature[-1, 1:].float())
+            transition_matrix_dino = self.build_knn_transition(dino_all_feature_maps[-1, 1:])
+            transition_matrix_clip = self.build_knn_transition(img_feature[-1, 1:].float())
             dino_to_clip_attention = self.resample(dino_last_layer_attention.mean(0)[1:, 1:], attn.shape[1] - 1)
             clip_to_dino_attention = self.resample(attn.mean(0)[1:, 1:], dino_last_layer_attention.shape[1] - 1)
             dino_all_feature_maps = self.classify(dino_all_feature_maps, text_features)[0][:, 1:, :len(fg_text_features)]
